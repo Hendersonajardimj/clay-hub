@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+:root {
+  --accent: #7fb069; /* Green awning color - industrial/urban vibe */
+  --bg-dark: #0a0a0a;
+  --bg-card: #151515;
+  --text-primary: #f5f5f5;
+  --text-secondary: #a0a0a0;
+  --text-muted: #666666;
+}
+
+@layer base {
+  * {
+    @apply border-neutral-800;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-[--bg-dark] text-[--text-primary] antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+
+  h1 {
+    @apply text-4xl md:text-6xl;
+  }
+
+  h2 {
+    @apply text-3xl md:text-5xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+}
+
+@layer components {
+  .accent-hover {
+    @apply transition-colors hover:text-[--accent];
+  }
+
+  .accent-link {
+    @apply text-[--accent] underline decoration-[--accent]/30 hover:decoration-[--accent] transition-colors;
+  }
+
+  .card {
+    @apply bg-[--bg-card] border border-neutral-800 overflow-hidden;
+  }
+
+  .btn-primary {
+    @apply bg-[--accent] text-[--bg-dark] px-6 py-3 font-bold uppercase tracking-wider
+           hover:bg-[--accent]/90 transition-all active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply border-2 border-[--accent] text-[--accent] px-6 py-3 font-bold uppercase tracking-wider
+           hover:bg-[--accent] hover:text-[--bg-dark] transition-all active:scale-95;
+  }
+
+  .section-title {
+    @apply text-[--text-secondary] uppercase tracking-[0.3em] text-sm font-bold mb-8;
+  }
+
+  /* Prose styling for Markdown content */
+  .prose-content {
+    @apply text-[--text-secondary] leading-relaxed;
+  }
+
+  .prose-content :global(h2) {
+    @apply text-[--text-primary] text-2xl md:text-3xl font-bold mt-12 mb-4;
+  }
+
+  .prose-content :global(h3) {
+    @apply text-[--text-primary] text-xl md:text-2xl font-bold mt-8 mb-3;
+  }
+
+  .prose-content :global(h4) {
+    @apply text-[--text-primary] text-lg font-bold mt-6 mb-2;
+  }
+
+  .prose-content :global(p) {
+    @apply mb-6;
+  }
+
+  .prose-content :global(a) {
+    @apply text-[--accent] underline decoration-[--accent]/30 hover:decoration-[--accent] transition-colors;
+  }
+
+  .prose-content :global(ul),
+  .prose-content :global(ol) {
+    @apply ml-6 mb-6 space-y-2;
+  }
+
+  .prose-content :global(li) {
+    @apply pl-2;
+  }
+
+  .prose-content :global(code) {
+    @apply bg-[--bg-card] border border-neutral-800 px-2 py-1 rounded text-sm;
+  }
+
+  .prose-content :global(pre) {
+    @apply bg-[--bg-card] border border-neutral-800 p-4 rounded overflow-x-auto mb-6;
+  }
+
+  .prose-content :global(pre code) {
+    @apply bg-transparent border-0 p-0;
+  }
+
+  .prose-content :global(blockquote) {
+    @apply border-l-4 border-[--accent] pl-6 italic text-[--text-secondary] my-6;
+  }
+
+  .prose-content :global(img) {
+    @apply w-full rounded border border-neutral-800 my-6;
+  }
+
+  .prose-content :global(hr) {
+    @apply border-neutral-800 my-8;
+  }
+
+  .prose-content :global(table) {
+    @apply w-full border-collapse my-6;
+  }
+
+  .prose-content :global(th),
+  .prose-content :global(td) {
+    @apply border border-neutral-800 px-4 py-2;
+  }
+
+  .prose-content :global(th) {
+    @apply bg-[--bg-card] font-bold text-left;
+  }
+}

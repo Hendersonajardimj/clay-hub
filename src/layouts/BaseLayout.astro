@@ -1,0 +1,97 @@
+---
+import '../styles/global.css';
+import { ViewTransitions } from 'astro:transitions';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title,
+  description = "Urban textures, industrial beats, and concrete frequencies.",
+  image = "/og/default.jpg"
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, Astro.site)} />
+
+    <ViewTransitions />
+  </head>
+  <body>
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[--bg-dark]/95 backdrop-blur-sm border-b border-neutral-800">
+      <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
+        <a href="/" class="text-xl font-bold tracking-tight accent-hover">CLAY</a>
+        <ul class="flex gap-8 text-sm uppercase tracking-wider">
+          <li><a href="/music" class="accent-hover">Music</a></li>
+          <li><a href="/visuals" class="accent-hover">Visuals</a></li>
+          <li><a href="/motion" class="accent-hover">Motion</a></li>
+          <li><a href="/writing" class="accent-hover">Writing</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="pt-20">
+      <slot />
+    </main>
+
+    <footer class="border-t border-neutral-800 mt-32 py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <h3 class="font-bold mb-4">Listen</h3>
+            <ul class="space-y-2 text-[--text-secondary]">
+              <li><a href="https://bandcamp.com" target="_blank" rel="noopener" class="accent-hover">Bandcamp</a></li>
+              <li><a href="https://soundcloud.com" target="_blank" rel="noopener" class="accent-hover">SoundCloud</a></li>
+              <li><a href="https://spotify.com" target="_blank" rel="noopener" class="accent-hover">Spotify</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-bold mb-4">Follow</h3>
+            <ul class="space-y-2 text-[--text-secondary]">
+              <li><a href="https://instagram.com" target="_blank" rel="noopener" class="accent-hover">Instagram</a></li>
+              <li><a href="https://twitter.com" target="_blank" rel="noopener" class="accent-hover">Twitter</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-bold mb-4">Contact</h3>
+            <ul class="space-y-2 text-[--text-secondary]">
+              <li><a href="mailto:hello@clay.com" class="accent-hover">Email</a></li>
+              <li><a href="/booking" class="accent-hover">Booking</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-12 pt-8 border-t border-neutral-800 text-center text-[--text-muted] text-sm">
+          <p>&copy; {new Date().getFullYear()} CLAY. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,173 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (async () => {
+  const photos = await getCollection('photos');
+  return photos.map((photo) => ({
+    params: { slug: photo.id },
+    props: { photo },
+  }));
+}) satisfies GetStaticPaths;
+
+const { photo } = Astro.props;
+
+const allPhotos = (await getCollection('photos')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+const currentIndex = allPhotos.findIndex((p) => p.id === photo.id);
+const prevPhoto = currentIndex > 0 ? allPhotos[currentIndex - 1] : null;
+const nextPhoto = currentIndex < allPhotos.length - 1 ? allPhotos[currentIndex + 1] : null;
+---
+
+<BaseLayout
+  title={`${photo.data.location} - CLAY Visuals`}
+  description={photo.data.alt}
+  image={photo.data.image}
+>
+  <article class="container mx-auto px-4 py-16">
+    <div class="max-w-6xl mx-auto">
+      <!-- Back link -->
+      <a href="/visuals" class="inline-block text-sm uppercase tracking-wider accent-hover mb-8">
+        ← Back to Visuals
+      </a>
+
+      <!-- Photo Display -->
+      <div class="mb-8">
+        <div class="relative bg-[--bg-card] border border-neutral-800 overflow-hidden">
+          <img
+            src={photo.data.image}
+            alt={photo.data.alt}
+            class="w-full h-auto cursor-zoom-in"
+            id="photo-main"
+          />
+        </div>
+      </div>
+
+      <!-- Photo Info -->
+      <div class="grid md:grid-cols-3 gap-8 mb-12">
+        <div class="md:col-span-2">
+          <h1 class="text-3xl font-bold mb-4">{photo.data.location}</h1>
+          <p class="text-lg text-[--text-secondary] mb-6">{photo.data.alt}</p>
+
+          {photo.data.tags && photo.data.tags.length > 0 && (
+            <div class="flex flex-wrap gap-2">
+              {photo.data.tags.map((tag) => (
+                <span class="text-xs uppercase tracking-wider px-3 py-1 bg-[--bg-card] border border-neutral-800">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div>
+          <div class="space-y-4">
+            <div>
+              <p class="text-xs text-[--text-muted] uppercase tracking-wider mb-1">Date</p>
+              <p class="text-sm">
+                {photo.data.date.toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
+              </p>
+            </div>
+
+            {photo.data.printAvailable && (
+              <div class="pt-4 border-t border-neutral-800">
+                <h3 class="text-lg font-bold mb-3">Available as Print</h3>
+                {photo.data.printSizes && (
+                  <p class="text-sm text-[--text-secondary] mb-2">
+                    Sizes: {photo.data.printSizes.join(', ')}
+                  </p>
+                )}
+                {photo.data.printPrice && (
+                  <p class="text-sm text-[--text-secondary] mb-4">
+                    From ${photo.data.printPrice}
+                  </p>
+                )}
+                <a href="/contact?print={photo.id}" class="btn-secondary block text-center">
+                  Request Print
+                </a>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="flex items-center justify-between pt-8 border-t border-neutral-800">
+        {prevPhoto ? (
+          <a href={`/visuals/${prevPhoto.id}`} class="group flex items-center gap-3 accent-hover">
+            <span class="text-2xl">←</span>
+            <div class="hidden sm:block">
+              <p class="text-xs text-[--text-muted] uppercase tracking-wider">Previous</p>
+              <p class="text-sm">{prevPhoto.data.location}</p>
+            </div>
+          </a>
+        ) : (
+          <div />
+        )}
+
+        {nextPhoto ? (
+          <a href={`/visuals/${nextPhoto.id}`} class="group flex items-center gap-3 accent-hover">
+            <div class="hidden sm:block text-right">
+              <p class="text-xs text-[--text-muted] uppercase tracking-wider">Next</p>
+              <p class="text-sm">{nextPhoto.data.location}</p>
+            </div>
+            <span class="text-2xl">→</span>
+          </a>
+        ) : (
+          <div />
+        )}
+      </div>
+    </div>
+  </article>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 bg-black/95 z-50 hidden items-center justify-center p-4">
+    <button
+      id="lightbox-close"
+      class="absolute top-4 right-4 text-4xl text-white hover:text-[--accent] transition-colors"
+      aria-label="Close lightbox"
+    >
+      ×
+    </button>
+    <img
+      src={photo.data.image}
+      alt={photo.data.alt}
+      class="max-w-full max-h-full object-contain"
+    />
+    <div class="absolute bottom-8 left-0 right-0 text-center">
+      <p class="text-white font-bold mb-1">{photo.data.location}</p>
+      <p class="text-sm text-gray-400">
+        Press ESC to close • Use arrow keys to navigate
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  const photoMain = document.getElementById('photo-main');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxClose = document.getElementById('lightbox-close');
+
+  photoMain?.addEventListener('click', () => {
+    lightbox?.classList.remove('hidden');
+    lightbox?.classList.add('flex');
+  });
+
+  lightboxClose?.addEventListener('click', () => {
+    lightbox?.classList.add('hidden');
+    lightbox?.classList.remove('flex');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox?.classList.contains('flex')) {
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('flex');
+    }
+  });
+</script>

@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BandcampEmbed from '../../components/BandcampEmbed.astro';
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (async () => {
+  const releases = await getCollection('releases');
+  return releases.map((release) => ({
+    params: { slug: release.id },
+    props: { release },
+  }));
+}) satisfies GetStaticPaths;
+
+const { release } = Astro.props;
+const { Content } = await release.render();
+---
+
+<BaseLayout
+  title={`${release.data.title} - CLAY`}
+  description={release.data.shortDescription}
+  image={release.data.coverImage}
+>
+  <article class="container mx-auto px-4 py-16">
+    <div class="max-w-5xl mx-auto">
+      <!-- Back link -->
+      <a href="/music" class="inline-block text-sm uppercase tracking-wider accent-hover mb-8">
+        ← Back to Music
+      </a>
+
+      <!-- Release Header -->
+      <div class="grid md:grid-cols-2 gap-12 mb-16">
+        <div>
+          <img
+            src={release.data.coverImage}
+            alt={release.data.coverAlt}
+            class="w-full aspect-square object-cover card"
+          />
+        </div>
+        <div>
+          <time class="text-xs text-[--text-muted] uppercase tracking-wider">
+            {release.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}
+          </time>
+          <h1 class="text-4xl md:text-5xl font-bold mt-2 mb-4">{release.data.title}</h1>
+          <p class="text-lg text-[--text-secondary] mb-8 leading-relaxed">
+            {release.data.shortDescription}
+          </p>
+
+          {release.data.tags && release.data.tags.length > 0 && (
+            <div class="flex flex-wrap gap-2 mb-8">
+              {release.data.tags.map((tag) => (
+                <span class="text-xs uppercase tracking-wider px-3 py-1 bg-[--bg-card] border border-neutral-800">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <BandcampEmbed albumId={release.data.bandcampEmbedId} />
+
+          <a
+            href={release.data.bandcampUrl}
+            target="_blank"
+            rel="noopener"
+            class="btn-primary inline-block mt-6 w-full text-center"
+          >
+            Buy / Support on Bandcamp
+          </a>
+        </div>
+      </div>
+
+      <!-- Release Notes / Credits -->
+      {(release.body || release.data.credits) && (
+        <div class="max-w-3xl">
+          <h2 class="section-title">About This Release</h2>
+          <div class="text-[--text-secondary] leading-relaxed prose-content">
+            <Content />
+            {release.data.credits && (
+              <div class="mt-8 pt-8 border-t border-neutral-800">
+                <h3 class="text-lg font-bold text-[--text-primary] mb-4">Credits</h3>
+                <p class="whitespace-pre-line">{release.data.credits}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  </article>
+</BaseLayout>

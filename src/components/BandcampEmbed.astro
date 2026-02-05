@@ -1,0 +1,35 @@
+---
+interface Props {
+  albumId: string;
+  trackId?: string;
+  size?: 'small' | 'large';
+  artwork?: 'small' | 'big';
+  tracklist?: boolean;
+}
+
+const {
+  albumId,
+  trackId,
+  size = 'large',
+  artwork = 'big',
+  tracklist = true
+} = Astro.props;
+
+const embedType = trackId ? 'track' : 'album';
+const embedId = trackId || albumId;
+
+// Bandcamp embed dimensions
+const height = size === 'large' ? (tracklist ? 470 : 120) : 42;
+---
+
+<div class="w-full my-4">
+  <iframe
+    style={`border: 0; width: 100%; height: ${height}px;`}
+    class="rounded-sm"
+    src={`https://bandcamp.com/EmbeddedPlayer/${embedType}=${embedId}/size=${size}/bgcol=0a0a0a/linkcol=7fb069/artwork=${artwork}${tracklist ? '/tracklist=true' : '/tracklist=false'}/transparent=true/`}
+    seamless
+    loading="lazy"
+    title="Bandcamp player"
+  >
+  </iframe>
+</div>

@@ -1,0 +1,12 @@
+{
+  "image": "/images/photos/green-awning.jpg",
+  "alt": "Weathered green storefront awning against aged brick wall, strong geometric shadows",
+  "location": "Lower East Side, NYC",
+  "date": "2024-09-08",
+  "tags": ["signage", "awning", "brick", "color"],
+  "printAvailable": true,
+  "printSKU": "CLAY-003",
+  "printPrice": 45,
+  "printSizes": ["8x10", "11x14", "16x20"],
+  "featured": true
+}
