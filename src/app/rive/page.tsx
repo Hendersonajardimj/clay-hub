@@ -1,8 +1,6 @@
-import dynamic from 'next/dynamic';
+"use client";
 
-const RiveStudio = dynamic(() => import('@/components/RiveStudio'), {
-  ssr: false
-});
+import RiveStudio from '@/components/RiveStudio';
 
 export default function RivePage() {
   return <RiveStudio />;

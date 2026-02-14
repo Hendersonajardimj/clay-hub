@@ -1,10 +1,7 @@
-import { Suspense } from 'react';
-import dynamic from 'next/dynamic';
+"use client";
 
-const PlaygroundScene = dynamic(() => import('@/components/PlaygroundScene'), {
-  ssr: false,
-  loading: () => <div className="visual-canvas" style={{ display: 'grid', placeItems: 'center', color: 'var(--muted)' }}>Loading scene…</div>
-});
+import { Suspense } from 'react';
+import PlaygroundScene from '@/components/PlaygroundScene';
 
 const featuredTracks = [
   {
