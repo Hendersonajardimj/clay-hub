@@ -28,6 +28,8 @@ export default function HomePage() {
           <Link href="/onboarding" className="btn btn-primary">Onboarding Flow</Link>
           <Link href="/playground" className="btn btn-primary">Enter Playground</Link>
           <Link href="/vault" className="btn btn-ghost">Explore Vault</Link>
+          <Link href="/media" className="btn btn-ghost">Media Gallery</Link>
+          <Link href="/live" className="btn btn-ghost">DJ Live Sets</Link>
           <Link href="/music" className="btn btn-ghost">Music + Bandcamp</Link>
           <Link href="/orchestration" className="btn btn-primary">Orchestration Guide</Link>
         </div>

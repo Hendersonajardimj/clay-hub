@@ -37,6 +37,21 @@ Railway deploy config:
 Landing hub:
 `/Users/joshuahenderson-jardim/projects/_inactive/clay/clay-hub/src/app/page.tsx`
 
+Media gallery:
+`/Users/joshuahenderson-jardim/projects/_inactive/clay/clay-hub/src/app/media/page.tsx`
+
+Live set schedule:
+`/Users/joshuahenderson-jardim/projects/_inactive/clay/clay-hub/src/app/live/page.tsx`
+
+Media API:
+`/Users/joshuahenderson-jardim/projects/_inactive/clay/clay-hub/src/app/api/media/route.ts`
+
+Live API:
+`/Users/joshuahenderson-jardim/projects/_inactive/clay/clay-hub/src/app/api/live/route.ts`
+
+Media upload API:
+`/Users/joshuahenderson-jardim/projects/_inactive/clay/clay-hub/src/app/api/media/upload/route.ts`
+
 3D and experiment area:
 `/Users/joshuahenderson-jardim/projects/_inactive/clay/clay-hub/src/app/playground/page.tsx`
 
@@ -78,13 +93,15 @@ On that page, your friend can complete three practical first actions:
 Visual-first.
 Audio-first.
 Motion-first.
+Media-first.
+Live-first.
 
 ## Quick start for your friend
 
 From the Bun-first repo root:
 
 `bun install`
-`bun run dev`
+`bun run onboarding`
 
 Open `http://localhost:3000/onboarding` and verify:
 
@@ -94,14 +111,16 @@ Open `http://localhost:3000/onboarding` and verify:
 `/rive` gives a Rive file import + playback sandbox
 `/music` is the launchpad for Bandcamp/track links
 `/vault` is the catalog planning page
+`/media` exposes image and AI-video exhibits
+`/live` exposes DJ set planning and stream embeds
 
 10-minute starter in this repo:
 
 `bun install`
 `bun run onboarding`
 Open `/onboarding` to begin
-Follow the visual, motion, or audio track card
-Complete at least three links to `/playground`, `/rive`, `/music`, and `/orchestration`
+Follow a starter path card
+Complete at least three links to `/playground`, `/rive`, `/media`, `/live`, `/orchestration`, or `/music`
 
 ## Project setup notes
 
@@ -114,7 +133,9 @@ Stack map:
 `/src/app/onboarding/page.tsx` describes first-run orientation
 `/src/types/onboarding.ts` contains typed onboarding contracts
 `/src/data/onboarding.ts` owns the current starter tracks and task map
-`/clay-hub/README.md`, `/clay-hub/CONTRIBUTING.md`, and `/clay-hub/frontend-design-skill.md` are for collaborator orientation
+`/src/types/media.ts`, `/src/data/media-catalog.ts` model media gallery data
+`/src/types/live.ts`, `/src/data/live-schedule.ts` model live set data
+`/clay-hub/README.md`, `/clay-hub/CONTRIBUTING.md` are for collaborator orientation
 
 Use `/src/app/playground` for Three.js-first experiments
 Use `/src/app/rive` for animation states and Rive prototyping
@@ -141,6 +162,7 @@ This repo is intentionally educational and low-friction. Start by adding tiny fe
 For 3D work, add models or shaders inside `src/components` and expose them from a dedicated scene file first.
 For music, point to real Bandcamp embed values in `/playground/page.tsx` and `/music/page.tsx`.
 For portfolio growth, treat `/vault/page.tsx` as the metadata index where tracks, media assets, scene presets, and release notes can eventually be indexed.
+For media, stage image and video references in `/src/data/media-catalog.ts` and keep stream metadata in `/src/data/live-schedule.ts`.
 
 ## Known caveat to address next
 

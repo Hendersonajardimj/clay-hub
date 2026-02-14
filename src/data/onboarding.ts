@@ -44,6 +44,30 @@ export const onboardingPaths: OnboardingPath[] = [
     capabilities: ['ableton', 'touchdesigner', 'mcp', 'audio', 'motion'],
     primaryRoute: '/orchestration',
     primaryCta: 'Open orchestration concept'
+  },
+  {
+    id: 'media-first',
+    friendlyName: 'Media-first',
+    description:
+      'Review image and AI video references so there is a visual layer that can follow music sessions.',
+    estimatedMinutes: 7,
+    prerequisites: ['Cloud-hosted preview links or placeholders available'],
+    commandSnippet: 'bun run onboarding\n# then open /media',
+    capabilities: ['media', 'video'],
+    primaryRoute: '/media',
+    primaryCta: 'Open media gallery'
+  },
+  {
+    id: 'live-first',
+    friendlyName: 'Live-first',
+    description:
+      'Load the set calendar and preview embedded stream links before each scheduled set.',
+    estimatedMinutes: 6,
+    prerequisites: ['Platform links (Twitch/YouTube/Mixcloud) ready in schedule'],
+    commandSnippet: 'bun run onboarding\n# then open /live',
+    capabilities: ['streaming'],
+    primaryRoute: '/live',
+    primaryCta: 'Open DJ set schedule'
   }
 ];
 
@@ -78,6 +102,22 @@ export const onboardingTasks: StarterTask[] = [
     detail: 'Use one shared section event for both Ableton and TouchDesigner and verify both routes react.',
     route: '/orchestration',
     commandSnippet: 'bun run onboarding\n# then open /orchestration',
+    estimatedMinutes: 2
+  },
+  {
+    id: 'starter-media',
+    title: 'Review gallery assets',
+    detail: 'Open the media gallery and inspect image/video placeholders for quick curation workflows.',
+    route: '/media',
+    commandSnippet: 'bun run onboarding\n# then open /media',
+    estimatedMinutes: 2
+  },
+  {
+    id: 'starter-live',
+    title: 'Review live set schedule',
+    detail: 'Open the DJ schedule and verify one upcoming embed and one archive reference.',
+    route: '/live',
+    commandSnippet: 'bun run onboarding\n# then open /live',
     estimatedMinutes: 2
   }
 ];

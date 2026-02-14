@@ -30,7 +30,9 @@ export const navSections: NavSection[] = [
   {
     title: 'Publishing',
     items: [
-      { label: 'Music', href: '/music' }
+      { label: 'Music', href: '/music' },
+      { label: 'Media', href: '/media' },
+      { label: 'Live', href: '/live' }
     ]
   }
 ];

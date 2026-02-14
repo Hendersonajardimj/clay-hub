@@ -14,7 +14,10 @@ const stackLabel: Record<string, string> = {
   gsap: 'GSAP',
   touchdesigner: 'Touch Designer',
   ableton: 'Ableton',
-  mcp: 'MCP'
+  mcp: 'MCP',
+  media: 'Media',
+  video: 'AI Video',
+  streaming: 'Live Streaming'
 };
 
 function PathCard({ path }: { path: OnboardingPath }) {
