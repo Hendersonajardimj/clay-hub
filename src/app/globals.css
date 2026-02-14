@@ -70,16 +70,49 @@ main {
   border-bottom: 1px solid rgba(148, 163, 184, 0.2);
   background: color-mix(in srgb, rgba(2, 6, 23, 0.85), transparent);
   backdrop-filter: blur(12px);
+  display: grid;
 }
 
 .site-nav-inner {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 0.7rem 1rem;
+  width: 100%;
+  padding: 0.65rem 1rem 0.6rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
+}
+
+.nav-shell {
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem 0.85rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  overflow: hidden;
+  max-height: 1000px;
+  opacity: 1;
+  pointer-events: auto;
+  transition:
+    max-height 0.28s ease,
+    opacity 0.24s ease;
+}
+
+.nav-shell.is-open {
+  max-height: 1000px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav-group-title {
+  margin: 0.25rem 0 0.2rem;
+  text-transform: uppercase;
+  color: #94a3b8;
+  letter-spacing: 0.11em;
+  font-size: 0.65rem;
 }
 
 .brand-mark {
@@ -99,17 +132,51 @@ main {
   letter-spacing: 0.01em;
 }
 
+.menu-toggle {
+  border: 1px solid color-mix(in srgb, var(--line), white 12%);
+  border-radius: 999px;
+  padding: 0.38rem 0.72rem;
+  min-height: 40px;
+  min-width: 40px;
+  display: none;
+  background: color-mix(in srgb, var(--surface-soft), white 3%);
+  color: var(--text);
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-toggle:hover,
+.menu-toggle:focus-visible {
+  border-color: var(--accent-2);
+}
+
+.menu-icon {
+  font-size: 1rem;
+  line-height: 1;
+  font-family: ui-serif, Georgia, serif;
+}
+
 .nav-links {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
   gap: 0.3rem;
+  align-items: center;
 }
 
 .nav-link {
   border: 1px solid transparent;
   border-radius: 999px;
   padding: 0.35rem 0.7rem;
+  border-color: color-mix(in srgb, var(--line), transparent 36%);
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.nav-link.is-active {
+  border-color: color-mix(in srgb, var(--accent-2), white 20%);
+  background: linear-gradient(130deg, color-mix(in srgb, var(--accent-2), white 15%), color-mix(in srgb, var(--accent), black 20%));
+  color: #0f172a;
 }
 
 .nav-link:hover,
@@ -398,14 +465,35 @@ main {
 }
 
 @media (max-width: 768px) {
+  .nav-shell {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+
   .site-nav-inner {
-    align-items: flex-start;
-    flex-direction: column;
+    padding-bottom: 0.55rem;
+  }
+
+  .nav-shell.is-open {
+    padding-bottom: 0.7rem;
   }
 
   .nav-links {
     width: 100%;
     justify-content: flex-start;
+  }
+
+  .nav-link {
+    width: fit-content;
   }
 }
 
