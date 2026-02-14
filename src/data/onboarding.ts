@@ -53,7 +53,7 @@ export const onboardingTasks: StarterTask[] = [
     title: 'Load the 3D scene',
     detail: 'Open the playground route and confirm the WebGL canvas initializes.',
     route: '/playground',
-    commandSnippet: 'bun run onboarding',
+    commandSnippet: 'bun run onboarding\n# then open /playground',
     estimatedMinutes: 2
   },
   {
@@ -61,7 +61,7 @@ export const onboardingTasks: StarterTask[] = [
     title: 'Try a Rive animation',
     detail: 'Drop in a .riv file and test loop and state toggles.',
     route: '/rive',
-    commandSnippet: 'bun run onboarding',
+    commandSnippet: 'bun run onboarding\n# then open /rive',
     estimatedMinutes: 2
   },
   {
@@ -69,7 +69,7 @@ export const onboardingTasks: StarterTask[] = [
     title: 'Anchor a release idea',
     detail: 'Open music area and verify your external track and landing references.',
     route: '/music',
-    commandSnippet: 'bun run onboarding',
+    commandSnippet: 'bun run onboarding\n# then open /music',
     estimatedMinutes: 1
   },
   {
@@ -77,7 +77,7 @@ export const onboardingTasks: StarterTask[] = [
     title: 'Map an orchestration state',
     detail: 'Use one shared section event for both Ableton and TouchDesigner and verify both routes react.',
     route: '/orchestration',
-    commandSnippet: 'bun run onboarding',
+    commandSnippet: 'bun run onboarding\n# then open /orchestration',
     estimatedMinutes: 2
   }
 ];

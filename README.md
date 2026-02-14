@@ -81,7 +81,7 @@ Motion-first.
 
 ## Quick start for your friend
 
-From the repo root:
+From the Bun-first repo root:
 
 `bun install`
 `bun run dev`
@@ -101,7 +101,7 @@ Open `http://localhost:3000/onboarding` and verify:
 `bun run onboarding`
 Open `/onboarding` to begin
 Follow the visual, motion, or audio track card
-Complete at least three links to `/playground`, `/rive`, and `/music`
+Complete at least three links to `/playground`, `/rive`, `/music`, and `/orchestration`
 
 ## Project setup notes
 
@@ -124,6 +124,9 @@ Production checks:
 
 `bun run build`
 `bun run start`
+
+Railway starts with `bun run start`, and the launch command is configured in:
+`/Users/joshuahenderson-jardim/projects/_inactive/clay/clay-hub/railway.json`
 
 Tailwind setup:
 

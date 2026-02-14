@@ -11,6 +11,9 @@
   --accent-2: #38bdf8;
   --danger: #fb7185;
   --focus: #f97316;
+  --motion-soft: 180ms;
+  --motion-mid: 220ms;
+  --motion-ease: cubic-bezier(0.2, 0.9, 0.3, 1);
 }
 
 * {
@@ -71,6 +74,8 @@ main {
   background: color-mix(in srgb, rgba(2, 6, 23, 0.85), transparent);
   backdrop-filter: blur(12px);
   display: grid;
+  overflow: hidden;
+  isolation: isolate;
 }
 
 .site-nav-inner {
@@ -92,19 +97,40 @@ main {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.8rem;
+  transform-origin: top center;
   overflow: hidden;
   max-height: 1000px;
   opacity: 1;
   pointer-events: auto;
+  visibility: visible;
   transition:
-    max-height 0.28s ease,
-    opacity 0.24s ease;
+    max-height var(--motion-mid) var(--motion-ease),
+    opacity var(--motion-mid) ease,
+    transform var(--motion-soft) var(--motion-ease);
+}
+
+.nav-group {
+  transition: opacity var(--motion-soft) ease, transform var(--motion-soft) var(--motion-ease);
+}
+
+.nav-shell.is-open .nav-group {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-shell .nav-group:nth-child(2) {
+  transition-delay: 30ms;
+}
+
+.nav-shell .nav-group:nth-child(3) {
+  transition-delay: 60ms;
 }
 
 .nav-shell.is-open {
   max-height: 1000px;
   opacity: 1;
   pointer-events: auto;
+  visibility: visible;
 }
 
 .nav-group-title {
@@ -167,10 +193,38 @@ main {
   border: 1px solid transparent;
   border-radius: 999px;
   padding: 0.35rem 0.7rem;
+  position: relative;
+  isolation: isolate;
+  transform: translateY(0);
   border-color: color-mix(in srgb, var(--line), transparent 36%);
   transition:
-    border-color 0.18s ease,
-    background-color 0.18s ease;
+    border-color var(--motion-soft) ease,
+    background-color var(--motion-soft) ease,
+    transform var(--motion-soft) var(--motion-ease),
+    box-shadow var(--motion-soft) ease;
+  overflow: hidden;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0.65rem;
+  right: 0.65rem;
+  bottom: 0.25rem;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transform: scaleX(0);
+  transform-origin: left center;
+  opacity: 0;
+  transition:
+    transform var(--motion-soft) var(--motion-ease),
+    opacity var(--motion-soft) ease;
+}
+
+.nav-link-text {
+  position: relative;
+  z-index: 1;
 }
 
 .nav-link.is-active {
@@ -179,10 +233,19 @@ main {
   color: #0f172a;
 }
 
+.nav-link:hover::after,
+.nav-link:focus-visible::after,
+.nav-link.is-active::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
 .nav-link:hover,
 .nav-link:focus-visible {
   border-color: var(--line);
   background: color-mix(in srgb, var(--surface-soft), white 3%);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(56, 189, 248, 0.16);
 }
 
 .kicker {
@@ -473,6 +536,11 @@ main {
     max-height: 0;
     opacity: 0;
     pointer-events: none;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition:
+      max-height 0.28s ease,
+      opacity 0.22s ease;
   }
 
   .menu-toggle {
@@ -484,7 +552,16 @@ main {
   }
 
   .nav-shell.is-open {
+    opacity: 1;
+    visibility: visible;
     padding-bottom: 0.7rem;
+    transform: translateY(0);
+    max-height: 1200px;
+  }
+
+  .nav-group {
+    opacity: 0;
+    transform: translateY(-4px);
   }
 
   .nav-links {
@@ -494,6 +571,29 @@ main {
 
   .nav-link {
     width: fit-content;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .nav-shell.is-open .nav-group {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .nav-shell.is-open .nav-group:nth-child(1) {
+    transition-delay: 0ms;
+  }
+
+  .nav-shell.is-open .nav-group:nth-child(2) {
+    transition-delay: 50ms;
+  }
+
+  .nav-shell.is-open .nav-group:nth-child(3) {
+    transition-delay: 80ms;
   }
 }
 

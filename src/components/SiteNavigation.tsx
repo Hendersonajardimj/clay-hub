@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { navSections } from '@/config/navigation';
+import type { NavSection } from '@/config/navigation';
 
 function MenuIcon({ open }: { open: boolean }) {
   return (
@@ -13,13 +14,82 @@ function MenuIcon({ open }: { open: boolean }) {
   );
 }
 
+function NavLinkItem({
+  href,
+  label,
+  isActive,
+  onActivate
+}: {
+  href: string;
+  label: string;
+  isActive: boolean;
+  onActivate: () => void;
+}) {
+  return (
+    <Link
+      href={href}
+      className={`nav-link ${isActive ? 'is-active' : ''}`}
+      onClick={onActivate}
+      aria-current={isActive ? 'page' : undefined}
+    >
+      <span className="nav-link-text">{label}</span>
+    </Link>
+  );
+}
+
+function NavSectionList({
+  section,
+  pathname,
+  onNavigate
+}: {
+  section: NavSection;
+  pathname: string;
+  onNavigate: () => void;
+}) {
+  return (
+    <section className="nav-group" aria-label={section.title}>
+      <p className="nav-group-title">{section.title}</p>
+      <div className="nav-links">
+        {section.items.map((link) => (
+          <NavLinkItem
+            key={link.href}
+            href={link.href}
+            label={link.label}
+            isActive={pathname === link.href}
+            onActivate={onNavigate}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export default function SiteNavigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(true);
   const pathname = usePathname();
 
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    const desktopMatcher = window.matchMedia('(min-width: 769px)');
+
+    const syncMode = () => {
+      setIsDesktop(desktopMatcher.matches);
+    };
+
+    syncMode();
+    desktopMatcher.addEventListener('change', syncMode);
+
+    return () => {
+      desktopMatcher.removeEventListener('change', syncMode);
+    };
+  }, []);
+
+  const isNavOpen = isDesktop || isOpen;
+  const isMobileMenuClosed = !isDesktop && !isOpen;
 
   return (
     <header className="site-nav">
@@ -38,23 +108,20 @@ export default function SiteNavigation() {
           <MenuIcon open={isOpen} />
         </button>
       </div>
-      <nav id="primary-nav" className={`nav-shell ${isOpen ? 'is-open' : ''}`} aria-label="Main">
+      <nav
+        id="primary-nav"
+        className={`nav-shell ${isNavOpen ? 'is-open' : ''}`}
+        aria-label="Main"
+        aria-hidden={isMobileMenuClosed}
+        inert={isMobileMenuClosed}
+      >
         {navSections.map((section) => (
-          <div className="nav-group" key={section.title}>
-            <p className="nav-group-title">{section.title}</p>
-            <div className="nav-links">
-              {section.items.map((link) => (
-                <Link
-                  href={link.href}
-                  key={link.href}
-                  className={`nav-link ${pathname === link.href ? 'is-active' : ''}`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
+          <NavSectionList
+            key={section.title}
+            section={section}
+            pathname={pathname}
+            onNavigate={() => setIsOpen(false)}
+          />
         ))}
       </nav>
     </header>

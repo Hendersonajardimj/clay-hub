@@ -11,6 +11,8 @@ Treat the onboarding page as the first task for new teammates.
 `bun run onboarding`
 Open `http://localhost:3000/onboarding`
 
+From there, complete the first actions in order: `/onboarding`, `/playground`, `/rive`, `/music`, then `/orchestration` as your cross-media route.
+
 ## Route conventions
 
 `/src/app` contains each route as its own surface.
