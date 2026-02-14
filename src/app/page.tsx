@@ -29,6 +29,7 @@ export default function HomePage() {
           <Link href="/playground" className="btn btn-primary">Enter Playground</Link>
           <Link href="/vault" className="btn btn-ghost">Explore Vault</Link>
           <Link href="/music" className="btn btn-ghost">Music + Bandcamp</Link>
+          <Link href="/orchestration" className="btn btn-primary">Orchestration Guide</Link>
         </div>
       </section>
 

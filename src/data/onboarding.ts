@@ -33,6 +33,17 @@ export const onboardingPaths: OnboardingPath[] = [
     capabilities: ['rive', 'gsap'],
     primaryRoute: '/rive',
     primaryCta: 'Open Rive Studio'
+  },
+  {
+    id: 'orchestration-first',
+    friendlyName: 'Orchestration-first',
+    description: 'Create one shared state event that drives Ableton section launches and TouchDesigner transitions.',
+    estimatedMinutes: 7,
+    prerequisites: ['Ableton and TouchDesigner in local workflow', 'OSC or MIDI transport path available'],
+    commandSnippet: 'bun run onboarding\n# then open /orchestration',
+    capabilities: ['ableton', 'touchdesigner', 'mcp', 'audio', 'motion'],
+    primaryRoute: '/orchestration',
+    primaryCta: 'Open orchestration concept'
   }
 ];
 
@@ -60,6 +71,14 @@ export const onboardingTasks: StarterTask[] = [
     route: '/music',
     commandSnippet: 'bun run onboarding',
     estimatedMinutes: 1
+  },
+  {
+    id: 'starter-orchestration',
+    title: 'Map an orchestration state',
+    detail: 'Use one shared section event for both Ableton and TouchDesigner and verify both routes react.',
+    route: '/orchestration',
+    commandSnippet: 'bun run onboarding',
+    estimatedMinutes: 2
   }
 ];
 

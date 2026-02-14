@@ -5,7 +5,8 @@ export type ToolCapability =
   | 'motion'
   | 'gsap'
   | 'touchdesigner'
-  | 'ableton';
+  | 'ableton'
+  | 'mcp';
 
 export interface StarterTask {
   id: string;

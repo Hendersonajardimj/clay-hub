@@ -23,6 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/rive" className="nav-link">Rive</Link>
               <Link href="/touch" className="nav-link">Touch Designer</Link>
               <Link href="/ableton" className="nav-link">Ableton</Link>
+              <Link href="/orchestration" className="nav-link">Orchestration</Link>
               <Link href="/vault" className="nav-link">Vault</Link>
               <Link href="/music" className="nav-link">Music</Link>
             </nav>

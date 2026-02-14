@@ -13,7 +13,8 @@ const stackLabel: Record<string, string> = {
   motion: 'Motion',
   gsap: 'GSAP',
   touchdesigner: 'Touch Designer',
-  ableton: 'Ableton'
+  ableton: 'Ableton',
+  mcp: 'MCP'
 };
 
 function PathCard({ path }: { path: OnboardingPath }) {
