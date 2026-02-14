@@ -194,6 +194,54 @@ main {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
+.tab-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0.7rem 0;
+}
+
+.tab-pill {
+  border: 1px solid color-mix(in srgb, var(--line), white 12%);
+  border-radius: 999px;
+  padding: 0.52rem 0.85rem;
+  min-height: 44px;
+  background: color-mix(in srgb, var(--surface-soft), white 3%);
+  color: #e2e8f0;
+  cursor: pointer;
+}
+
+.tab-pill.is-active {
+  border-color: color-mix(in srgb, var(--accent-2), transparent 18%);
+  background: linear-gradient(130deg, color-mix(in srgb, var(--accent), black 28%), color-mix(in srgb, var(--surface), white 6%));
+  color: #ecfeff;
+}
+
+.tab-pill:hover,
+.tab-pill:focus-visible {
+  border-color: var(--accent-2);
+  outline: none;
+}
+
+.learning-panel {
+  margin-top: 0.6rem;
+  border: 1px dashed var(--line);
+  border-radius: 1rem;
+  padding: 1rem;
+  background: color-mix(in srgb, var(--surface-soft), black 10%);
+}
+
+.learning-milestones {
+  margin: 0.7rem 0 0;
+  padding-left: 1.1rem;
+  color: #c8d9f7;
+  line-height: 1.45;
+}
+
+.learning-milestones li + li {
+  margin-top: 0.45rem;
+}
+
 .card {
   border: 1px solid var(--line);
   border-radius: 1rem;

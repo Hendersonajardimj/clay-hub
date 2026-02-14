@@ -1,4 +1,4 @@
-import type { OnboardingPath, StarterTask } from '@/types/onboarding';
+import type { LearningTrack, OnboardingPath, StarterTask } from '@/types/onboarding';
 
 export const onboardingPaths: OnboardingPath[] = [
   {
@@ -60,5 +60,40 @@ export const onboardingTasks: StarterTask[] = [
     route: '/music',
     commandSnippet: 'bun run onboarding',
     estimatedMinutes: 1
+  }
+];
+
+export const learningTracks: LearningTrack[] = [
+  {
+    id: 'touch-designer',
+    friendlyName: 'Touch Designer',
+    description: 'Learn the node-first workflow for motion-first visuals and export references that can inspire WebGL or Rive sequences.',
+    estimatedMinutes: 8,
+    prerequisites: ['Basic visual design curiosity', 'A project folder ready for exports'],
+    commandSnippet: 'bun run onboarding\n# then open /touch',
+    capabilities: ['touchdesigner', 'motion'],
+    primaryRoute: '/touch',
+    primaryCta: 'Enter Touch Designer Guide',
+    milestones: [
+      'Understand how operators chain logic and timing in a scene graph.',
+      'Build a looping motion network with one visual parameter drive.',
+      'Export an image sequence or reference and annotate what to rebuild in web.'
+    ]
+  },
+  {
+    id: 'ableton-plugins',
+    friendlyName: 'Ableton Plugins',
+    description: 'Learn plugin-level thinking: one synth, one effect chain, and one transport rhythm you can pair with visuals.',
+    estimatedMinutes: 7,
+    prerequisites: ['Ability to run Ableton', 'A short MIDI or stem clip'],
+    commandSnippet: 'bun run onboarding\n# then open /ableton',
+    capabilities: ['ableton', 'audio'],
+    primaryRoute: '/ableton',
+    primaryCta: 'Enter Ableton Plugins Guide',
+    milestones: [
+      'Set up a simple chain that is clearly identifiable in the mix.',
+      'Create an automation block that marks visual sync points.',
+      'Export a short render and map the timeline cue names in your notes.'
+    ]
   }
 ];
