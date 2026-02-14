@@ -19,6 +19,8 @@ It currently uses:
 `framer-motion` `12.34.0`
 `gsap` `3.14.2`
 `@rive-app/react-canvas` `4.27.0`
+`tailwindcss` `4.1.18`
+`@tailwindcss/postcss` `4.1.18`
 `bun` for package management and scripts (`1.3.5` pinned in `.bun-version`)
 
 Bun lock/runtime support files:
@@ -66,6 +68,17 @@ You have a navigable landing, a dedicated playground route, a dynamic WebGL entr
 
 The pages currently use a simple studio aesthetic and are intentionally lightweight so the team can focus on adding media-first features next.
 
+## Onboarding and first-run flow
+
+The quickest path for new collaborators now begins with the onboarding route:
+
+`/Users/joshuahenderson-jardim/projects/_inactive/clay/clay-hub/src/app/onboarding/page.tsx`
+
+On that page, your friend can complete three practical first actions:
+Visual-first.
+Audio-first.
+Motion-first.
+
 ## Quick start for your friend
 
 From the repo root:
@@ -73,18 +86,50 @@ From the repo root:
 `bun install`
 `bun run dev`
 
-Open `http://localhost:3000` and verify:
+Open `http://localhost:3000/onboarding` and verify:
 
 `/` lands on the studio home
+`/onboarding` opens the first-run guide
 `/playground` shows the 3D scene
 `/rive` gives a Rive file import + playback sandbox
 `/music` is the launchpad for Bandcamp/track links
 `/vault` is the catalog planning page
 
+10-minute starter in this repo:
+
+`bun install`
+`bun run onboarding`
+Open `/onboarding` to begin
+Follow the visual, motion, or audio track card
+Complete at least three links to `/playground`, `/rive`, and `/music`
+
+## Project setup notes
+
+`/Users/joshuahenderson-jardim/projects/_inactive/clay/clay-hub` is the active project root for commands.
+
+Stack map:
+
+`/src/app/page.tsx` is the artist-facing launch surface
+`/src/app/layout.tsx` controls shared nav and shell
+`/src/app/onboarding/page.tsx` describes first-run orientation
+`/src/types/onboarding.ts` contains typed onboarding contracts
+`/src/data/onboarding.ts` owns the current starter tracks and task map
+`/clay-hub/README.md`, `/clay-hub/CONTRIBUTING.md`, and `/clay-hub/frontend-design-skill.md` are for collaborator orientation
+
+Use `/src/app/playground` for Three.js-first experiments
+Use `/src/app/rive` for animation states and Rive prototyping
+Use `/src/app/music` for audio and Bandcamp references
+
 Production checks:
 
 `bun run build`
 `bun run start`
+
+Tailwind setup:
+
+`/Users/joshuahenderson-jardim/projects/_inactive/clay/clay-hub/postcss.config.mjs`
+`/Users/joshuahenderson-jardim/projects/_inactive/clay/clay-hub/src/app/globals.css`
+`@import "tailwindcss";`
 
 ## Practical notes for new teammates
 

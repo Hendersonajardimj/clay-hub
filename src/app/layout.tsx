@@ -13,13 +13,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <header className="site-nav">
           <div className="site-nav-inner">
-            <strong>CLAY</strong>
-            <nav>
-              <Link href="/">Home</Link>
-              <Link href="/playground">Playground</Link>
-              <Link href="/rive">Rive</Link>
-              <Link href="/vault">Vault</Link>
-              <Link href="/music">Music</Link>
+            <Link href="/" className="brand-mark">
+              CLAY
+            </Link>
+            <nav className="nav-links">
+              <Link href="/" className="nav-link">Home</Link>
+              <Link href="/onboarding" className="nav-link">Onboarding</Link>
+              <Link href="/playground" className="nav-link">Playground</Link>
+              <Link href="/rive" className="nav-link">Rive</Link>
+              <Link href="/vault" className="nav-link">Vault</Link>
+              <Link href="/music" className="nav-link">Music</Link>
             </nav>
           </div>
         </header>
